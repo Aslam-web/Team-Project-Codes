@@ -15,10 +15,13 @@ public class BulkMailSender {
 	private Session session;
 	private Message message;
 
-	private String fromEmail = "aslamhit21009@gmail.com";
-	private String password = "hit21009";
-	private String toEmail; // = "wasa.wasa.in@gmail.com";
+	private String fromEmail = "sendersEmail@gmail.com";
+	private String password = "sendersPassword";
+	private String toEmail;
 
+	
+	// instead of calling all methods seperately, just calling this method is enough
+	// this method will initialize the toEmail. and call all the corresponding methods
 	public void startProcess(String toEmail) {
 		this.toEmail = toEmail;
 		makeConnection();
@@ -26,6 +29,8 @@ public class BulkMailSender {
 		send();
 	}
 	
+
+	// sets up the connection with sever and creates a Session
 	private void makeConnection() {
 
 		Properties properties = new Properties();
@@ -45,6 +50,8 @@ public class BulkMailSender {
 		});
 	}
 
+	
+	// creates the Message object to be sent via mail
 	private void createMessage() {
 
 		message = new MimeMessage(session);
@@ -60,6 +67,8 @@ public class BulkMailSender {
 		}
 	}
 
+	
+	// sends the message using Transport.send()
 	private boolean send() {
 
 		try {
@@ -74,8 +83,11 @@ public class BulkMailSender {
 		}
 	}
 
+	
+	// a helper method for createMessage() for creating the text body
 	private String getText() {
 
+		// splits the email so that we get the person's name
 		String[] splittedArray = toEmail.split("@");
 		String name = splittedArray[0];
 

@@ -16,10 +16,12 @@ public class MailSender {
 	private Session session;
 	private Message message;
 	
-	private String fromEmail = "aslamhit21009@gmail.com";
-	private String password = "hit21009";
-	private String toEmail = "wasa.wasa.in@gmail.com";
+	private String fromEmail = "sendersEmail@gmail.com";
+	private String password = "sendersPassword";
+	private String toEmail = "recieversEmail@gmail.com";
 	
+	
+	// sets up the connection with sever and creates a Session
 	public void makeConnection(){
 		
 		Properties properties = new Properties();
@@ -39,6 +41,7 @@ public class MailSender {
 		});
 	}
 
+	// creates the Message object to be sent via mail
 	public void createMessage() {
 		
 		message = new MimeMessage(session);
@@ -54,6 +57,8 @@ public class MailSender {
 		}
 	}
 
+	
+	// sends the message using Transport.send()
 	public boolean send() {
 		
 		try {
@@ -68,8 +73,11 @@ public class MailSender {
 		} 
 	}
 	
+	
+	// a helper method for createMessage() for creating the text body
 	private String getText() {
 
+		// splits the email so that we get the person's name
 		String[] splittedArray= toEmail.split("@");
 		String name = splittedArray[0];
 		
